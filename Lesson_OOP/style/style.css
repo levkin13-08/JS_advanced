@@ -85,9 +85,35 @@
     display: none;
 }
 
-.basket-item {
+.cart-item {
     display: flex;
     width: 500px;
     height: 70px;
     margin-bottom: 5px;
 }
+
+.product-bio {
+    display: flex;
+}
+
+.right-block {
+    display: flex;
+}
+
+/* .search-form{
+    position: relative;
+    margin-right: 50px;
+    display: inline-block;
+}
+.search-field:focus{
+    outline: none;
+}
+.search-field {
+    box-sizing: border-box;
+    width: 200px;
+    color: #fafafa;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #fafafa;
+} */
