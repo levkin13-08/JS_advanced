@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="box-next-ex">
+        <span id="text-box__before-text">
+            One: 'Hi Mary.'
+            Two: 'Oh, hi.'
+            One: 'How are you doing?'
+            Two: 'I'm doing alright. How about you?'
+            One: 'Not too bad. The weather is great isn't it?'
+            Two: 'Yes. It's absolutely beautiful today.'
+            One: 'I wish it was like this more frequently.'
+            Two: 'Me too.'
+            One: 'So where are you going now?'
+            Two: 'I'm going to meet a friend of mine at the department store'
+            One: 'Going to do a little shopping?'
+            Two: 'Yeah, I have to buy some presents for my parents.'
+            One: 'What's the occasion?'
+            Two: 'It's their anniversary.'
+            One: 'That's great. Well, you better get going. You don't want to be late.'
+            Two: 'I'll see you next time.'
+            One: 'Sure. Bye.'
+        </span>
+        <br>
+        <button id="btn-change-text" onclick="changeText()"> Изменить ' на " </button>
+        <br>
+        <span id="text-box__after-text"></span>  
+    </div>
+
+    <div class="form-box" >
+        <h1 style="text-align: center"> Форма обратной связи </h1>		 
+        <form name="regform">
+        <h2 id="form-box__area__headline"></h2>
+            <p >Имя: 
+                <input type="text" size=65 name="name" class="form-box__area"></p><br>
+                <span class="error-text form-box__area"></span>	 
+            <p>E-mail: 
+                <input type="text" size=65 name="email" class="form-box__area"> </p><br> 
+                <span class="error-text form-box__area"></span>	
+            <p>Телефон: 
+                <input type="text" size=65 name="telephone" onclick="this.value=''" value="+7(000)000-0000" class="form-box__area"> </p><br>
+                <span class="error-text form-box__area"></span>	
+            <p> Комментарий: 
+                <textarea cols="55" name="comment" class="form-box__area"> </textarea></p> 
+            <p>
+                <input type="submit" value="Отправить" name="submitButton">	 
+                <!-- <input type="reset" value="Отмена" name="Reset">  -->
+            </p>		 
+        </form> 
+        
+    </div>
+
+    <script src="main1.js"></script>
+    <script src="main2.js"></script>
+</body>
+</html>
