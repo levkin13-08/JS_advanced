@@ -1,21 +1,28 @@
+const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+
+const basketEl = document.querySelector(".basket");
+document.querySelector(".btn-cart").addEventListener('click', () => {
+    basketEl.classList.toggle('hidden');
+    });
+
 class ProductList{
     constructor(container='.products'){
         this.container = container;
         this.goods = [];
-        this._fetchProducts();//рекомендация, чтобы метод был вызван в текущем классе
-        this.render();//вывод товаров на страницу
-        this.getSum();
+        this._getProducts()
+            .then(data => {
+                this.goods = data;
+                this.render()
+            });
+        this.render();
+    }
 
-        
+    _getProducts () {
+        return fetch (`${API}/catalogData.json`)
+            .then (result => result.json())
+            .catch (error => console.log(error));
     }
-    _fetchProducts(){
-        this.goods = [
-                {id: 1, title: 'Notebook', price: 2000 , image: "img/notebook.jpg"},
-                {id: 2, title: 'Mouse', price: 20, image: "img/mouse.jpg"},
-                {id: 3, title: 'Keyboard', price: 200, image: "img/keyboard.jpg"},
-                {id: 4, title: 'Gamepad', price: 50, image: "img/gamepad.jpg"},
-            ];
-    }
+
     
    getSum () {
     let sum = 0 ;
@@ -25,8 +32,6 @@ class ProductList{
         console.log(sum);
    }
     
-
-
     render(){
         const block = document.querySelector(this.container);
         for(let product of this.goods){
@@ -39,11 +44,12 @@ class ProductList{
 }
 
 class ProductItem{
-    constructor(product){
-        this.title = product.title;
+    constructor(product, img = 'https://via.placeholder.com/200x150'){
+        this.title = product.product_name;
         this.id = product.id;
         this.price = product.price;
-        this.img = product.image;
+        this.img = img;
+     
     }
     render(){
            return   `<div class="product-item">
@@ -56,11 +62,21 @@ class ProductItem{
 }
 
 class Cart {
-    constructor (product) {
-        this.title = product.title;
-        this.price = product.price;
-        this.img = product.image;
-    }
+    constructor (container = '.basket') {
+        this.container = container;
+        this.goods = [];
+        this._getBasket()
+            .then (data => {
+                this.goods = data.contents;
+                this.render()
+            });
+        }
+
+    _getBasket () {
+        return fetch (`${API}/getBasket.json`)
+            .then (result => result.json())
+            .catch (error => console.log (error));
+      }
 
     addToCart () {
 
@@ -74,40 +90,35 @@ class Cart {
 
     }
 
-    renderCart () {
-        
+    render() {
+        const block = document.querySelector(this.container);
+        for(let product of this.goods){
+             const item = new CartItem(product);
+             block.insertAdjacentHTML("beforeend",item.render());
+        }
     }
 }
 
+class CartItem {
+
+    constructor(product, img = 'https://via.placeholder.com/50x50'){
+        this.title = product.product_name;
+        this.id = product.id_product;
+        this.price = product.price;
+        this.img = img;
+        this.quantity = product.quantity
+    }
+
+    render(){
+           return   `<div class="basket-item" >
+                        <img class="basket-img" src='${this.img}'</img>
+                        <h3 class="basket-item__text">${this.title}</h3>
+                        <p class="basket-item__price">${this.price}</p>
+                        <p class="basket-item__price">Количество: ${this.quantity}</p>
+                    </div>`
+    }
+}
+    
 let list = new ProductList();
+new Cart();
 
-
-
-
-
-
-
-// const products = [
-//     {id: 1, title: 'Notebook', price: 2000 , image: "img/notebook.jpg"},
-//     {id: 2, title: 'Mouse', price: 20, image: "img/mouse.jpg"},
-//     {id: 3, title: 'Keyboard', price: 200, image: "img/keyboard.jpg"},
-//     {id: 4, title: 'Gamepad', price: 50, image: "img/gamepad.jpg"},
-// ];
-
-//Функция для формирования верстки каждого товара
-//Добавить в выводе изображение
-// const renderProduct = (title, image, price) => {
-//     return `<div class="product-item">
-//                 <h3 class="product-item__text">${title}</h3>
-//                 <img class="product-img" src='${image}'</img>
-//                 <p class="product-item__price">${price}</p>
-//                 <button class="buy-btn">Купить</button>
-//             </div>`
-// };
-// const renderPage = list => {
-//     const productsList = list.map(item => renderProduct(item.title, item.image, item.price)).join('');
-//     console.log(productsList);
-//     document.querySelector('.products').innerHTML = productsList;
-// };
-
-// renderPage(products);
