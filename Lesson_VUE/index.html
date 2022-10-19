@@ -11,12 +11,7 @@
     <header>
         <div class="logo">GameShop</div>
         <div class="cart">
-            <form action="#" class="search-form" @submit.prevent = "filter">
-                <input type="text" class="search-field" v-model="userSearch">
-                <button class="btn-search" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
+            <filter-el></filter-el>
             <span class="btn-cart" type="button" @click="showCart = !showCart">
                 <img class="cartIcon" src="img/cart.png" alt="">
                 <span class="cartSum" >{{ counterCart() }}</span>
@@ -41,6 +36,7 @@
         </div>
     </header>
     <main>
+        <error ref="error"></error>
         <div class="products">
             <div class="product-item" v-for="product of filtered" :key="product.id_product">
                 <img :src="imgCatalog" alt="Some img">
@@ -56,5 +52,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/Filter.js"></script>
+    <script src="js/Error.js"></script>
 </body>
 </html>
